@@ -1,7 +1,7 @@
 {
   "build": {
     "builder": "nixpacks",
-    "buildCommand": "apt-get update && apt-get install -y gdal-bin libgdal-dev python3-gdal libexpat1 libspatialindex-dev"
+    "buildCommand": "apt-get update && apt-get install -y libexpat1 libgdal-dev gdal-bin python3-gdal && ldconfig"
   },
   "deploy": {
     "startCommand": "uvicorn app.main:app --host 0.0.0.0 --port $PORT",
