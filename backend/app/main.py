@@ -17,7 +17,11 @@ app = FastAPI(
 # Configure CORS for frontend communication
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with your frontend URL
+    allow_origins=[
+        "http://localhost:3000",
+        "https://dominica-damage-assessment.netlify.app",  # Your Netlify domain
+        "https://your-app-name.netlify.app"  # Any future domains
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,9 +29,8 @@ app.add_middleware(
 
 # Data file paths
 DATA_DIR = Path("data")
-BUILDINGS_FILE = DATA_DIR / "buildings.geojson"
-HEXAGONS_FILE = DATA_DIR / "hexagons.geojson"
-
+BUILDINGS_FILE = DATA_DIR / "buildings.geojson"    # Remove the extra "data/"
+HEXAGONS_FILE = DATA_DIR / "hexagons.geojson"      # Remove the extra "data/"
 
 # Load data on startup
 @app.on_event("startup")

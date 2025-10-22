@@ -1,5 +1,15 @@
+providers = ["python"]
+
 [phases.setup]
-cmds = ["pip install -r requirements.txt"]
+cmds = [
+    "pip install --upgrade pip",
+    "pip install -r requirements.txt"
+]
+
+[phases.install]
+cmds = [
+    "python -c \"import geopandas; print('Geopandas installed successfully')\""
+]
 
 [start]
 cmd = "uvicorn app.main:app --host 0.0.0.0 --port $PORT"
