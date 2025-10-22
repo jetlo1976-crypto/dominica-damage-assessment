@@ -20,7 +20,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:3000",
         "https://dominica-damage-assessment.netlify.app",  # Your Netlify domain
-        "https://your-app-name.netlify.app"  # Any future domains
+        "https://dominica-damage-assessment-production.up.railway.app"  
     ],
     allow_credentials=True,
     allow_methods=["*"],

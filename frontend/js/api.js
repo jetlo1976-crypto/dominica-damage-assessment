@@ -1,7 +1,10 @@
+// API Configuration
+const API_BASE_URL = "https://dominica-damage-assessment-production.up.railway.app";
+
 // API Functions for Python backend communication
 async function loadDamageSummary() {
     try {
-        const response = await fetch('http://localhost:8000/api/damage-summary');
+        const response = await fetch(`${API_BASE_URL}/api/damage-summary`);
         const data = await response.json();
         console.log('Damage summary from Python API:', data);
         createDamageDashboard(data);
@@ -12,7 +15,7 @@ async function loadDamageSummary() {
 
 async function loadHexagonStats(hexagonId) {
     try {
-        const response = await fetch(`http://localhost:8000/api/hexagon-stats/${hexagonId}`);
+        const response = await fetch(`${API_BASE_URL}/api/hexagon-stats/${hexagonId}`);
         return await response.json();
     } catch (error) {
         console.error('Failed to fetch hexagon stats:', error);
