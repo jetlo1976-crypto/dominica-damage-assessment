@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgis:
+    image: postgis/postgis:15-3.3
+    container_name: dominica-postgis
+    environment:
+      POSTGRES_DB: dominica_data
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: dev123
+    ports:
+      - "5433:5432"  # Using 5433 to avoid conflicts
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d  # For initialization scripts
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U developer -d dominica_data"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: dominica-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@dominica.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    depends_on:
+      postgis:
+        condition: service_healthy
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  postgres_data:
+  pgadmin_data:
